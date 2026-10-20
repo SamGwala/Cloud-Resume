@@ -27,9 +27,4 @@ Terraform → S3 + CloudFront + API Gateway + Lambda + DynamoDB + IAM
 CI/CD:
 GitHub Actions → validation/tests → Terraform/deployment
 
-## Before publishing
 
-1. Replace the placeholder LinkedIn URL.
-2. Replace the placeholder email address.
-3. Update the SkyGuard and UN Smart Facility repository links to their exact repositories.
-4. Add the visitor-counter API URL to `script.js` after the backend is deployed.
