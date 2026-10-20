@@ -1,5 +1,6 @@
-resource "aws_s3_bucket" "cloud_resume_terraform_state" { #create state bucket 
-  bucket = "cloud-resume-terraform-bootstrap-state"
+#create state bucket
+resource "aws_s3_bucket" "cloud_resume_terraform_state" {  
+  bucket = var.state_bucket_name
 
   tags = {
     Name        = "terraform state"
@@ -7,8 +8,9 @@ resource "aws_s3_bucket" "cloud_resume_terraform_state" { #create state bucket
   }
 }
 
+#Link versioning to our local bucket name
 resource "aws_s3_bucket_versioning" "versioning_state" {
-  bucket = aws_s3_bucket.cloud_resume_terraform_state.id #Link versioning to our local bucket name
+  bucket = aws_s3_bucket.cloud_resume_terraform_state.id 
   versioning_configuration {
     status = "Enabled"
   }
