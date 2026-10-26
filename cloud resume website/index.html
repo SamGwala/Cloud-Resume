@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cloud infrastructure engineer building monitored, self-recovering AWS infrastructure in Terraform. Systems and network operations background. AWS SAA, Terraform Associate, KCNA, LPIC-1.">
+  <title>Samukelisiwe Gwala | Cloud Infrastructure Engineer (AWS, Terraform, Linux)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">Cloud Infrastructure Engineer</p>
+        <h1>Samukelisiwe Gwala</h1>
+        <p class="value-prop">I design AWS infrastructure in Terraform and build the monitoring and automated recovery around it. Almost three years of hands-on systems and network support taught me how things fail and what an outage costs the people using it. I build to prevent both.</p>
+        <p class="location">South Africa · Gauteng / Remote · Open to cloud infrastructure, cloud support, platform and DevOps roles</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#skyguard">View SkyGuard</a>
+          <a class="btn" href="mailto:jackiegwala@gmail.com">Email me</a>
+          <a class="btn" href="Samukelisiwe-Gwala-CV.pdf" download>Download CV</a>
+        </div>
+        <div class="links">
+          <a href="https://github.com/SamGwala" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/samkelisiwe-gwala-8a88a1315" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <span class="status-dot"></span>
+        <strong>AWS · Terraform · Linux · Docker · Python</strong>
+        <span>4 certifications: AWS SAA, AWS CCP, KCNA, LPIC-1</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about">
+      <h2>About</h2>
+      <p>I’m a cloud infrastructure engineer with a systems and network operations background. Across almost three years in IT support, currently in managed services, I diagnose failures across endpoints, networks and Microsoft 365, which is where I learned root-cause analysis and how to prioritise by impact.</p>
+      <p>I now build the infrastructure side of that work: AWS environments defined in Terraform, least-privilege access and event-driven monitoring and remediation that verifies recovery instead of assuming it. I hold four certifications and I’m building toward platform engineering.</p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div><strong>AWS</strong><p>EC2, VPC, IAM, S3, CloudWatch, EventBridge, Lambda, Systems Manager, DynamoDB, SNS, API Gateway, CloudFront</p></div>
+        <div><strong>Infrastructure as Code</strong><p>Terraform: reusable modules, remote state with locking, provider and version pinning, environment separation</p></div>
+        <div><strong>Linux &amp; Systems</strong><p>Linux administration (LPIC-1), Windows and macOS endpoints, Microsoft 365 and Exchange</p></div>
+        <div><strong>Networking</strong><p>TCP/IP, DNS, VPC design, security groups, VPN, LAN/WAN/Wi-Fi diagnostics</p></div>
+        <div><strong>Observability</strong><p>CloudWatch metrics, alarms and logs, structured logging, health checks, Grafana dashboards</p></div>
+        <div><strong>Automation</strong><p>Python, Bash, event-driven remediation (EventBridge → Lambda → Systems Manager)</p></div>
+        <div><strong>CI/CD</strong><p>Git and GitHub; a GitHub Actions pipeline for SkyGuard is in development</p></div>
+        <div><strong>Containers</strong><p>Docker; Kubernetes fundamentals (KCNA)</p></div>
+        <div><strong>Security</strong><p>Least-privilege IAM, SSM-based access with no SSH, restricted network exposure, secrets management</p></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+
+      <article class="project featured" id="skyguard">
+        <div class="project-heading">
+          <div>
+            <h3>SkyGuard: incident response and automated recovery for AWS</h3>
+            <p class="muted">Independent infrastructure project · In development</p>
+            <p class="muted">AWS · Terraform · Docker · CloudWatch · EventBridge · Lambda · Systems Manager · DynamoDB · Grafana</p>
+          </div>
+        </div>
+
+        <h4>Problem</h4>
+        <p>Most auto-remediation fails in one of two ways. It reports success because a restart command returned 0 while the service is still down or it retries forever and turns a small fault into a larger one. SkyGuard is a reusable platform for running containerised workloads on AWS, built around avoiding both.</p>
+
+        <h4>Architecture</h4>
+        <p>SkyGuard is designed as Terraform modules that provision standardised networking, compute, IAM, monitoring and per-environment infrastructure. CloudWatch alarms and health checks raise events through EventBridge to a Lambda function, which classifies the incident, adds operational context, and selects a remediation based on severity and the workload’s recovery history. Systems Manager carries it out as a service restart or an instance replacement. Recovery is then validated against application health; if validation fails, the platform tries the next step or escalates once retry thresholds are exceeded. Every incident is recorded in DynamoDB, and Grafana dashboards cover availability, error rate, latency and recovery performance. The status table below shows what is built today.</p>
+
+        <h4>Engineering decisions</h4>
+        <ul>
+          <li><strong>Validate the outcome, not the command.</strong> A successful SSM execution proves a command ran. Application health decides whether the incident is resolved.</li>
+          <li><strong>Bound the automation.</strong> Retry thresholds stop restart loops and define when a human takes over.</li>
+          <li><strong>Choose remediation from context.</strong> Severity and recovery history decide between a restart and a replacement. A third identical restart is rarely the right answer.</li>
+          <li><strong>Keep incident history.</strong> State, workload, actions, attempts and outcomes are stored, so repeat failures are visible and past results inform the next decision.</li>
+          <li><strong>Remove SSH from the access model.</strong> Administration goes through Systems Manager, IAM roles are scoped per function, and secrets are managed rather than embedded.</li>
+        </ul>
+
+        <h4>Delivery and reliability</h4>
+        <p>The delivery pipeline is designed around GitHub Actions: Terraform validation, infrastructure security checks, application tests, image builds and scans, deployment, and post-deployment health validation. Reliability is tested through planned failure scenarios: application crashes, service failures, resource exhaustion, unhealthy instances, failed remediation, failed deployments and repeated incidents. A configuration-driven onboarding model lets new workloads use the platform without copied infrastructure.</p>
+
+        <h4>Project status</h4>
+        <p class="muted" id="skyguard-updated"></p>
+        <div class="table-wrap">
+          <table class="status-table">
+            <thead><tr><th>Component</th><th>Status</th></tr></thead>
+            <tbody id="skyguard-status-body"></tbody>
+          </table>
+        </div>
+        <p class="muted" id="skyguard-summary"></p>
+        <p class="evidence" id="skyguard-evidence"></p>
+      </article>
+
+      <article class="project">
+        <div class="project-heading">
+          <div>
+            <h3>Facility Monitor: monitored, self-recovering EC2 infrastructure</h3>
+            <p class="muted">AWS · Terraform · EC2 · CloudWatch · SNS · Systems Manager · S3</p>
+          </div>
+        </div>
+        <p><strong>Problem.</strong> A single EC2 workload that failed or ran hot would go unnoticed until a user complained, and fixing it meant opening SSH access.</p>
+        <p><strong>Solution.</strong> Terraform provisions an Ubuntu workload with CloudWatch alarms on sustained CPU, SNS notifications, and automated recovery through Systems Manager. Remote state lives in S3 with locking so applies can’t collide. Alarms fire on sustained load, not spikes, to keep alerts meaningful. A budget alert caps surprise cost.</p>
+        <p><strong>Outcome.</strong> It established the patterns SkyGuard scales up.</p>
+        <a class="repo-link" href="https://github.com/SamGwala/Smart-Facility-Cloud-Monitor" target="_blank" rel="noopener">Repository</a>
+      </article>
+
+    </section>
+
+    <section id="how-i-think">
+      <h2>How I think</h2>
+      <div class="practice-grid">
+        <div><h3>Infrastructure is code</h3><p>If it can’t be rebuilt from a repo, it isn’t engineered.</p></div>
+        <div><h3>Automation has limits</h3><p>Bounded retries, then a human.</p></div>
+        <div><h3>Verify outcomes, not actions</h3><p>Recovery is confirmed at the application, not at the command.</p></div>
+        <div><h3>Minimise exposure by default</h3><p>No SSH, scoped IAM, restricted networking.</p></div>
+        <div><h3>Operate it, don’t just deploy it</h3><p>Metrics, alarms, incident history and cost alerts belong in the design from the start.</p></div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Professional experience</h2>
+
+      <article class="job">
+        <div class="job-heading"><h3>SATNET</h3><span>IT Technical Support Technician · Current role</span></div>
+        <p class="muted">Managed services across multiple customer environments</p>
+        <ul>
+          <li>Isolate root causes across endpoint, OS, network and Microsoft 365 incidents, remotely and onsite.</li>
+          <li>Diagnose LAN, WAN, Wi-Fi and VPN faults.</li>
+          <li>Prioritise incidents across customer environments by operational impact.</li>
+          <li>Run endpoint patching and security (ESET), and backup and restore operations (Veeam Agent).</li>
+        </ul>
+        <p class="carry"><strong>Carries into cloud work:</strong> incident triage, root-cause discipline, patching and backup hygiene, and clear communication with non-technical users during outages.</p>
+      </article>
+
+      <article class="job">
+        <div class="job-heading"><h3>Telkom</h3><span>IT Support Intern · 2023</span></div>
+        <p>Workstation deployment, router and connectivity troubleshooting, onsite and remote support.</p>
+      </article>
+
+      <article class="job">
+        <div class="job-heading"><h3>CCI</h3><span>Customer Technical Support · 2021–2022</span></div>
+        <p>Customer connectivity and systems troubleshooting, with structured escalation to specialist teams.</p>
+      </article>
+    </section>
+
+    <section id="certifications">
+      <h2>Certifications</h2>
+      <div class="table-wrap">
+        <table class="cert-table">
+          <thead><tr><th>Certification</th><th>What it demonstrates</th></tr></thead>
+          <tbody>
+            <tr><td>AWS Certified Solutions Architect – Associate</td><td>Designing resilient, secure and cost-aware AWS architectures, and weighing service trade-offs</td></tr>
+            <tr><td>LPIC-1</td><td>Linux administration: filesystems, permissions, services, networking, basic security</td></tr>
+            <tr><td>Kubernetes and Cloud Native Associate (KCNA)</td><td>Kubernetes and cloud-native architecture: containers, orchestration, the ecosystem</td></tr>
+            <tr><td>AWS Certified Cloud Practitioner</td><td>Core AWS services, shared responsibility, billing and pricing</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Education</h3>
+      <p>BSc Information Technology, Richfield Graduate Institute of Technology. Completing November 2026.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>I’m looking for cloud infrastructure, cloud engineering, platform and DevOps roles. Email is the fastest way to reach me, and I’m glad to walk through SkyGuard’s architecture and the trade-offs behind it.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:jackiegwala@gmail.com">Email me</a>
+        <a class="btn" href="Samukelisiwe-Gwala-CV.pdf" download>Download CV</a>
+        <a class="btn" href="https://github.com/SamGwala" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/samkelisiwe-gwala-8a88a1315" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Samukelisiwe Gwala · Hosted on AWS</p>
+      <button id="printBtn">Print / Save as PDF</button>
+      <p class="visitor">Visitors: <span id="visitorCount">Loading...</span></p>
+    </div>
+  </footer>
+
+  <script src="skyguard-status.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

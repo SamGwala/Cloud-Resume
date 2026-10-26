@@ -1,0 +1,412 @@
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #0f172a;
+  --surface: #111c31;
+  --surface-light: #162238;
+  --text: #f8fafc;
+  --body: #cbd5e1;
+  --muted: #94a3b8;
+  --line: #334155;
+  --accent: #60a5fa;
+  --accent-dark: #93c5fd;
+  --dark: #0f172a;
+}
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.container {
+  width: min(1080px, calc(100% - 36px));
+  margin: 0 auto;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--accent-dark);
+  outline-offset: 2px;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--dark);
+  color: white;
+  padding: 64px 0 52px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: end;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--accent-dark);
+  font-size: .95rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.5rem, 7vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+.value-prop {
+  max-width: 62ch;
+  margin: 14px 0 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+}
+
+.location {
+  color: var(--body);
+  margin: 12px 0 18px;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 14px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 9px 16px;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.btn:hover { border-color: var(--accent); }
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0f172a;
+}
+
+.btn-primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.links a, .repo-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 750;
+}
+
+.links a {
+  color: white;
+  border: 1px solid #475569;
+  padding: 7px 12px;
+  border-radius: 999px;
+}
+
+.hero-card {
+  min-width: min(250px, 100%);
+  max-width: 320px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  display: grid;
+  gap: 5px;
+}
+
+.hero-card span:last-child {
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  display: inline-block;
+}
+
+/* ---------- Sections ---------- */
+section {
+  background: var(--surface);
+  margin: 22px 0;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, .18);
+  scroll-margin-top: 16px;
+}
+
+section > h2 {
+  margin-top: 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--line);
+  font-size: 1.15rem;
+  letter-spacing: .02em;
+}
+
+section p { color: var(--body); }
+
+.skills-grid, .practice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.skills-grid > div, .practice-grid > div {
+  padding: 16px;
+  background: var(--surface-light);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+/* An odd last item spans the full row instead of sitting alone */
+.skills-grid > div:last-child:nth-child(odd),
+.practice-grid > div:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.skills-grid p, .practice-grid p {
+  margin: 5px 0 0;
+  color: var(--muted);
+}
+
+/* ---------- Projects and experience ---------- */
+.project, .job {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.project:last-child, .job:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.featured {
+  border: 1px solid #3b82f6;
+  background: #172554;
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.project-heading, .job-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.project-heading > div, .job-heading > h3 { min-width: 0; }
+
+h3 {
+  margin: 0 0 5px;
+  font-size: 1.05rem;
+}
+
+.project h4 {
+  margin: 18px 0 4px;
+  font-size: .98rem;
+  color: var(--accent-dark);
+}
+
+.project h4 + p, .project h4 + ul { margin-top: 0; }
+
+.muted {
+  color: var(--muted);
+  margin: 0;
+}
+
+.badge {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: var(--accent-dark);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+ul { padding-left: 20px; }
+li { margin: 6px 0; }
+.project ul, .job ul { color: var(--body); }
+
+.repo-link {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.job-heading span {
+  color: var(--muted);
+  font-size: .9rem;
+  text-align: right;
+}
+
+.carry { margin: 10px 0 0; }
+.evidence { margin: 16px 0 0; }
+.evidence a { color: var(--accent); font-weight: 700; text-decoration: none; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; max-width: 100%; }
+
+.status-table, .cert-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 14px;
+}
+
+.status-table th, .cert-table th {
+  color: var(--muted);
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.status-table th, .status-table td,
+.cert-table th, .cert-table td {
+  text-align: left;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  color: var(--body);
+}
+
+.cert-table td:first-child {
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: 30px;
+  padding: 28px 0 45px;
+  background: var(--dark);
+  color: var(--body);
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#printBtn {
+  border: 1px solid #475569;
+  background: transparent;
+  color: white;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.visitor {
+  width: 100%;
+  margin: 0;
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+/* ---------- Placeholders: delete this block when every fact is filled in ---------- */
+span.todo {
+  background: #fde68a;
+  color: #422006;
+  padding: 0 .3em;
+  border-radius: 3px;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 720px) {
+  .hero-grid, .skills-grid, .practice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero { padding: 42px 0; }
+  section { padding: 22px; }
+
+  .project-heading, .job-heading { flex-direction: column; }
+  .job-heading span { text-align: left; }
+
+  .badge { white-space: normal; }
+  .btn { flex: 1 1 auto; text-align: center; }
+  .cert-table td:first-child { white-space: normal; }
+}
+
+/* ---------- Print / Save as PDF ---------- */
+@media print {
+  body { background: white; color: #111; }
+
+  .hero {
+    color: #111;
+    background: white;
+    padding: 25px 0;
+    border-bottom: 2px solid #ddd;
+  }
+
+  .hero-card, footer, .links a, .cta-row, .badge { display: none; }
+
+  h1, h2, h3, h4, p, li, td, th, span, strong,
+  .eyebrow, .location, .value-prop, .muted,
+  section p, .skills-grid p, .practice-grid p, .job-heading span,
+  .evidence a { color: #111 !important; }
+
+  section {
+    box-shadow: none;
+    break-inside: avoid;
+    margin: 10px 0;
+    background: white;
+    border-color: #bbb;
+  }
+
+  section > h2 { border-bottom-color: #bbb; }
+  .featured { background: white; border-color: #bbb; }
+  .skills-grid > div, .practice-grid > div { background: white; border-color: #bbb; }
+  .status-table th, .status-table td,
+  .cert-table th, .cert-table td { border-bottom-color: #ccc; }
+  span.todo { background: none; }
+}
+
+/* ---------- SkyGuard status pills (rendered by script.js) ---------- */
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 800;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.st-operational { background: #14532d; color: #bbf7d0; border-color: #22c55e; }
+.st-in-build   { background: #422006; color: #fde68a; border-color: #f59e0b; }
+.st-designed   { background: #1e293b; color: var(--muted); border-color: #475569; }
+
+@media print {
+  .pill { background: none !important; border-color: #999; }
+}

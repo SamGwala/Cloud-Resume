@@ -34,7 +34,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "website_encryptio
   }
 }
 
-resource "aws_s3_bucket_ownership_controls" "webiste_ownership" {
+resource "aws_s3_bucket_ownership_controls" "cloud_resume_webiste_ownership" {
   bucket = aws_s3_bucket.cloud_resume_bucket.id
 
   rule {
